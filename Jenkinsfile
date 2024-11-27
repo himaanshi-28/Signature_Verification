@@ -1,50 +1,50 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'my-app-image'
+        CONTAINER_NAME = 'my-app-container'
+        EMAIL_RECIPIENT1 = 'himaanshi250803@gmail.com'
+        EMAIL_RECIPIENT1 = 'heshica2003@gmail.com'
+        EMAIL_RECIPIENT1 = 'monit.singh1626@gmail.com'
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                // Pull code from GitHub
-                checkout scm
+                git branch: 'main', url: 'https://github.com/himaanshi-28/Signature_Verification.git' 
             }
         }
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
-                script {
-                    sh 'docker build -t myapp:latest .'
-                }
+                sh 'docker build -t ${IMAGE_NAME} .'
             }
         }
         stage('Run Docker Container') {
             steps {
-                // Stop and remove existing container
                 script {
-                    sh '''
-                    docker stop myapp-container || true
-                    docker rm myapp-container || true
-                    '''
-                }
-                // Run new Docker container
-                script {
-                    sh 'docker run -d --name myapp-container -p 8080:8080 myapp:latest'
+                    sh 'docker stop ${CONTAINER_NAME} || true'
+                    sh 'docker rm ${CONTAINER_NAME} || true'
+                    
+                    sh 'docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}'
                 }
             }
         }
     }
-    
+
     post {
         always {
-            // Send email notification
-            emailext (
-                to: 'himaanshi250803@gmail.com, heshica2003@gmail.com, monit.singh1626@gmail.com',
-                subject: "Jenkins Pipeline Execution: ${currentBuild.fullDisplayName}",
-                body: """
-                Build Status: ${currentBuild.currentResult}
-                Build URL: ${env.BUILD_URL}
-                Commit Triggered the Build: ${env.GIT_COMMIT}
-                """
-            )
+            echo 'Build finished.'
+        }
+        failure {
+            mail to: "${EMAIL_RECIPIENT1}, ${EMAIL_RECIPIENT2}, ${EMAIL_RECIPIENT3}",
+                 subject: "Jenkins Pipeline Build Failed",
+                 body: "The build for the repository ${env.JOB_NAME} has failed. Please check the logs for more details."
+        }
+        success {
+            mail to: "${EMAIL_RECIPIENT1}, ${EMAIL_RECIPIENT2}, ${EMAIL_RECIPIENT3}",
+                 subject: "Jenkins Pipeline Build Successful",
+                 body: "The build for the repository ${env.JOB_NAME} was successful. Your app is running in a Docker container."
         }
     }
 }
