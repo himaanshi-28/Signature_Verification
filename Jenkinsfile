@@ -17,16 +17,16 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t ${IMAGE_NAME} .'
+                bat 'docker build -t %IMAGE_NAME% .'
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker stop ${CONTAINER_NAME} || true'
-                    bat 'docker rm ${CONTAINER_NAME} || true'
+                    bat 'docker stop %CONTAINER_NAME% || true'
+                    bat 'docker rm %CONTAINER_NAME% || true'
                     
-                    bat 'docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}'
+                    bat 'docker run -d --name %CONTAINER_NAME% %IMAGE_NAME%'
                 }
             }
         }
