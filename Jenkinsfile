@@ -5,8 +5,8 @@ pipeline {
         IMAGE_NAME = 'my-app-image'
         CONTAINER_NAME = 'my-app-container'
         EMAIL_RECIPIENT1 = 'himaanshi250803@gmail.com'
-        EMAIL_RECIPIENT1 = 'heshica2003@gmail.com'
-        EMAIL_RECIPIENT1 = 'monit.singh1626@gmail.com'
+        EMAIL_RECIPIENT2 = 'heshica2003@gmail.com'
+        EMAIL_RECIPIENT3 = 'monit.singh1626@gmail.com'
     }
 
     stages {
