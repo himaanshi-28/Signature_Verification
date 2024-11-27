@@ -1,42 +1,49 @@
 pipeline {
     agent any
-    triggers {
-        githubPush() 
-    }
-    environment {
-        RECIPIENTS = "himaanshi.sharma21@st.niituniversity.in, heshica.vanapalli21@st.niituniversity.in, monit.singh21@st.niituniversity.in"
-    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo "Building..."
-                // Add build steps here
+                // Pull code from GitHub
+                checkout scm
             }
         }
-        stage('Test') {
+        stage('Build Docker Image') {
             steps {
-                echo "Testing..."
-                // Add test steps here
+                // Build Docker image
+                script {
+                    sh 'docker build -t myapp:latest .'
+                }
+            }
+        }
+        stage('Run Docker Container') {
+            steps {
+                // Stop and remove existing container
+                script {
+                    sh '''
+                    docker stop myapp-container || true
+                    docker rm myapp-container || true
+                    '''
+                }
+                // Run new Docker container
+                script {
+                    sh 'docker run -d --name myapp-container -p 8080:8080 myapp:latest'
+                }
             }
         }
     }
+    
     post {
-        success {
+        always {
+            // Send email notification
             emailext (
-                subject: "Jenkins Job Success: ${env.JOB_NAME}",
-                body: """<p>The Jenkins job <b>${env.JOB_NAME}</b> has succeeded.</p>
-                         <p>Changes were pushed to the repository.</p>""",
-                recipientProviders: [[$class: 'CulpritsRecipientProvider']],
-                to: "${RECIPIENTS}"
-            )
-        }
-        failure {
-            emailext (
-                subject: "Jenkins Job Failure: ${env.JOB_NAME}",
-                body: """<p>The Jenkins job <b>${env.JOB_NAME}</b> has failed.</p>
-                         <p>Please check the logs for details.</p>""",
-                recipientProviders: [[$class: 'CulpritsRecipientProvider']],
-                to: "${RECIPIENTS}"
+                to: 'himaanshi.sharma21@st.niituniversity.in, heshica.vanapalli21@st.niituniversity.in, monit.singh21@st.niituniversity.in',
+                subject: "Jenkins Pipeline Execution: ${currentBuild.fullDisplayName}",
+                body: """
+                Build Status: ${currentBuild.currentResult}
+                Build URL: ${env.BUILD_URL}
+                Commit Triggered the Build: ${env.GIT_COMMIT}
+                """
             )
         }
     }
