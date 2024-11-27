@@ -47,7 +47,7 @@ pipeline {
                     bat 'docker stop %CONTAINER_NAME% || true'
                     bat 'docker rm %CONTAINER_NAME% || true'
                     
-                    bat 'docker run -d --name %CONTAINER_NAME% %IMAGE_NAME%'
+                    bat 'docker run -p 8888:8888 %IMAGE_NAME%'
                 }
             }
         }
