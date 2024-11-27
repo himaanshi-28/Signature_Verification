@@ -37,7 +37,7 @@ pipeline {
         always {
             // Send email notification
             emailext (
-                to: 'himaanshi.sharma21@st.niituniversity.in, heshica.vanapalli21@st.niituniversity.in, monit.singh21@st.niituniversity.in',
+                to: 'himaanshi250803@gmail.com, heshica2003@gmail.com, monit.singh1626@gmail.com',
                 subject: "Jenkins Pipeline Execution: ${currentBuild.fullDisplayName}",
                 body: """
                 Build Status: ${currentBuild.currentResult}
