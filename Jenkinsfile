@@ -15,27 +15,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/himaanshi-28/Signature_Verification.git' 
             }
         }
-        stage('Fetch and Integrate CNN Model') {
-            steps {
-                script {
-                    bat """
-                    REM Fetch the CNN model branch
-                    git fetch origin CNN_Model
-                    git checkout CNN_Model
-                    
-                    REM Copy CNN model files to a temporary folder
-                    if not exist CNN_Model mkdir CNN_Model
-                    xcopy * ..\\CNN_Model /E /I /Y
-
-                    REM Switch back to the main branch and integrate the model
-                    git checkout main
-                    xcopy ..\\CNN_Model\\* CNN_Model /E /I /Y
-                    git add CNN_Model
-                    git commit -m "Integrated CNN model from branch"
-                    """
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t %IMAGE_NAME% .'
