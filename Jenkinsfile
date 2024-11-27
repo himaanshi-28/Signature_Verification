@@ -15,6 +15,28 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/himaanshi-28/Signature_Verification.git' 
             }
         }
+        stage('Configure Git User') {
+            steps {
+                script {
+                    bat 'git config --global user.email "himaanshi.28.2021@doonschool.com"'
+                    bat 'git config --global user.name "himaanshi-28"'
+                }
+            }
+        }
+        stage('Fetch and Integrate CNN Model') {
+            steps {
+                script {
+                    bat 'git fetch origin CNN_Model'
+                    bat 'git checkout CNN_Model'
+                    bat 'if not exist CNN_Model mkdir CNN_Model'
+                    bat 'xcopy * ..\\CNN_Model /E /I /Y'
+                    bat 'git checkout main'
+                    bat 'xcopy ..\\CNN_Model\\* CNN_Model /E /I /Y'
+                    bat 'git add CNN_Model'
+                    bat 'git commit -m "Integrated CNN model from branch"'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t %IMAGE_NAME% .'
@@ -23,10 +45,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker stop %CONTAINER_NAME% || true'
-                    bat 'docker rm %CONTAINER_NAME% || true'
-                    
-                    bat 'docker run -p 8888:8888 %IMAGE_NAME%'
+                    bat 'docker run -d -p 5000:5000 %IMAGE_NAME%'
                 }
             }
         }
