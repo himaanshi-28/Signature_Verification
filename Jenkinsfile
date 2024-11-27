@@ -38,13 +38,36 @@ pipeline {
         }
         failure {
             mail to: "${EMAIL_RECIPIENT1}, ${EMAIL_RECIPIENT2}, ${EMAIL_RECIPIENT3}",
-                 subject: "Jenkins Pipeline Build Failed",
-                 body: "The build for the repository ${env.JOB_NAME} has failed. Please check the logs for more details."
+                 subject: "🔴 Jenkins Pipeline Build Failed - ${env.JOB_NAME}",
+                 body: """
+                 <h1 style="color:red;">Pipeline Build Failed</h1>
+                 <p>The build for <b>${env.JOB_NAME}</b> failed.</p>
+                 <h3>Details:</h3>
+                 <ul>
+                    <li><b>Build Number:</b> ${env.BUILD_NUMBER}</li>
+                    <li><b>Project:</b> ${env.JOB_NAME}</li>
+                    <li><b>Build URL:</b> <a href="${env.BUILD_URL}">View Build Logs</a></li>
+                 </ul>
+                 <p>Please check the logs for more details.</p>
+                 """,
+                 mimeType: 'text/html'
         }
         success {
             mail to: "${EMAIL_RECIPIENT1}, ${EMAIL_RECIPIENT2}, ${EMAIL_RECIPIENT3}",
-                 subject: "Jenkins Pipeline Build Successful",
-                 body: "The build for the repository ${env.JOB_NAME} was successful. Your app is running in a Docker container."
+                 subject: "🟢 Jenkins Pipeline Build Successful - ${env.JOB_NAME}",
+                 body: """
+                 <h1 style="color:green;">Pipeline Build Successful</h1>
+                 <p>The build for <b>${env.JOB_NAME}</b> was completed successfully!</p>
+                 <h3>Details:</h3>
+                 <ul>
+                    <li><b>Build Number:</b> ${env.BUILD_NUMBER}</li>
+                    <li><b>Project:</b> ${env.JOB_NAME}</li>
+                    <li><b>Build URL:</b> <a href="${env.BUILD_URL}">View Build Logs</a></li>
+                    <li><b>App Status:</b> Running in a Docker container (<b>${CONTAINER_NAME}</b>).</li>
+                 </ul>
+                 <p>Thank you for your effort!</p>
+                 """,
+                 mimeType: 'text/html'
         }
     }
 }
