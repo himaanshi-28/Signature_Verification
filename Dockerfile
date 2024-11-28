@@ -1,13 +1,12 @@
-FROM jupyter/minimal-notebook:latest
+FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY requirements.txt /app/
+COPY . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY App.ipynb /app/
+EXPOSE 5000
 
-EXPOSE 8888
+CMD ["python", "app.py"]
 
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
