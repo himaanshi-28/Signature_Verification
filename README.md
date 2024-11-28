@@ -71,7 +71,7 @@ This project demonstrates the use of Convolutional Neural Networks (CNN) to veri
 Accuracy and loss metrics are used for evaluation.
 
 ## 🖼️ **Dataset**
-The dataset consists of 28 people signatures and for each person we have 24 genuine and 24 forged signature images.We have used CEDAR dataset for training and for testing we can use custom as well.
+The dataset consists of 55 people signatures and for each person we have 24 genuine and 24 forged signature images.We have used CEDAR dataset for training and for testing we can use custom as well.
 
 **Genuine Signatures**
 
