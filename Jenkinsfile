@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'docker.io/signurture/signurture-app-image:latest'
+        IMAGE_NAME = 'signurture-image:latest'
         CONTAINER_NAME = 'my-app-container'
         EMAIL_RECIPIENT1 = 'himaanshi250803@gmail.com'
         EMAIL_RECIPIENT2 = 'heshica2003@gmail.com'
@@ -23,29 +23,16 @@ pipeline {
                 }
             }
         }
-        stage('Fetch and Integrate CNN Model') {
-            steps {
-                script {
-                    bat 'git fetch origin CNN_Model'
-                    bat 'git checkout CNN_Model'
-                    bat 'if not exist CNN_Model mkdir CNN_Model'
-                    bat 'xcopy * ..\\CNN_Model /E /I /Y'
-                    bat 'git checkout main'
-                    bat 'xcopy ..\\CNN_Model\\* CNN_Model /E /I /Y'
-                    bat 'git add CNN_Model'
-                    bat 'git commit -m "Integrated CNN model from branch"'
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %IMAGE_NAME% .'
+                bat 'docker build -t signurture/signurture-app-image:latest .'
+                bat 'docker push signurture/signurture-app-image:latest'
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker run -d -p 5000:5000 %IMAGE_NAME%'
+                    bat 'docker run -d -p 5000:5000 signurture/signurture-app-image:latest'
                 }
             }
         }
