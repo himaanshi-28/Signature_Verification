@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'my-app-image'
+        IMAGE_NAME = 'docker.io/signurture/signurture-app-image:latest'
         CONTAINER_NAME = 'my-app-container'
         EMAIL_RECIPIENT1 = 'himaanshi250803@gmail.com'
         EMAIL_RECIPIENT2 = 'heshica2003@gmail.com'
