@@ -1,0 +1,6 @@
+Django==4.2.3
+djangorestframework==3.14.0
+tensorflow==2.11.0  # Ensure you're using the correct version of TensorFlow that matches your project
+Pillow==9.3.0  # For image processing
+numpy==1.23.4  # For numerical operations
+requests==2.28.1  # For sending HTTP requests, if needed
