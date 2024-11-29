@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'signurture-image:latest'
-        CONTAINER_NAME = 'my-app-container'
+        IMAGE_BACKEND = 'signurture-image_b:latest'
+        IMAGE_FRONTEND = 'signurture-image_f:latest'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        CONTAINER_NAME = 'signurture-container'
         EMAIL_RECIPIENT1 = 'himaanshi250803@gmail.com'
         EMAIL_RECIPIENT2 = 'heshica2003@gmail.com'
         EMAIL_RECIPIENT3 = 'monit.singh1626@gmail.com'
@@ -23,16 +25,17 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
+        stage('Build Docker Images') {
             steps {
-                bat 'docker build -t signurture/signurture-app-image:latest .'
-                bat 'docker push signurture/signurture-app-image:latest'
+                script {
+                    bat 'docker-compose build'
+                }
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker run -d -p 5000:5000 signurture/signurture-app-image:latest'
+                    bat 'docker-compose up -d'
                 }
             }
         }
