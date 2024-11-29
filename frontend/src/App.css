@@ -1,0 +1,94 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Global Styles */
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #357D89;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Center the content vertically and horizontally */
+}
+
+.container {
+  background-color: #ffffff; /* Different color box for main content */
+  color: #357D89;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow for aesthetics */
+  width: 400px; /* Adjust width for better alignment */
+  text-align: center;
+}
+
+.header {
+  font-size: 32px; /* Larger font size for heading */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #357D89;
+}
+
+.upload-section {
+  margin-top: 20px;
+}
+
+.upload-section input {
+  margin: 10px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #357D89;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ffffff;
+  color: #357D89;
+  border: 2px solid #357D89; /* Border for hover effect */
+}
