@@ -1,7 +1,0 @@
-flask==2.2.3
-flask-ngrok==0.0.25
-tensorflow==2.13.0
-numpy==1.23.5
-Pillow==9.2.0
-requests==2.28.1
-selenium==4.9.1
