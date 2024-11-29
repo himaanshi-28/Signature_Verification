@@ -14,32 +14,6 @@ This project demonstrates the use of Convolutional Neural Networks (CNN) to veri
 
 **Custom Dataset Compatibility:** Works with custom datasets after preprocessing.
 
-## 📂 **Project Structure**
-
-├── data-CEDAR/
-
-│   ├── genuine/          # Folder for genuine signature images
-
-│   ├── forged/           # Folder for forged signature images
-
-├── models/
-
-│   ├── sigNUrture.h5  # Saved CNN model
-
-├── notebooks/
-
-│   ├── signature_verification.ipynb  # Jupyter notebook for training and testing
-
-├── utils/
-
-│   ├── data_preprocessing.py        # Script for preprocessing images
-
-│   ├── model_training.py            # Script for training the CNN
-
-├── README.md
-
-└── requirements.txt                 # Required Python packages
-
 ## 🚀 **How It Works**
 
 **Data Preprocessing:**
@@ -64,14 +38,18 @@ This project demonstrates the use of Convolutional Neural Networks (CNN) to veri
 
 -> The dataset is split into training, validation, and testing subsets.
 
--> The model optimizes on a contrastive loss function using rms optimizer.
+-> The model optimizes on a contrastive loss function using Adam optimizer.
 
 **Evaluation:**
 
 Accuracy and loss metrics are used for evaluation.
 
 ## 🖼️ **Dataset**
-The dataset consists of 55 people signatures and for each person we have 24 genuine and 24 forged signature images.We have used CEDAR dataset for training and for testing we can use custom as well.
+The dataset consists of:
+
+Training Data: 30 unique signatories, each with 24 original (genuine) signatures and 24 forged signatures (1440 images in total).
+
+Testing Data: 20 unique signatories, each with 24 original (genuine) signatures and 24 forged signatures (960 images in total).
 
 **Genuine Signatures**
 
@@ -81,10 +59,10 @@ The dataset consists of 55 people signatures and for each person we have 24 genu
 
 The model achieved:
 
-**Training Accuracy:** X%
+**Training Accuracy:** 99.79%
 
-**Validation Accuracy:** Y%
+**Testing Accuracy:** 91.83%
 
-**Test Accuracy:** Z%
+**Graphical Outputs:** Accuracy vs. Epochs & Loss vs. Epochs
 
 
