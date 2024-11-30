@@ -10,7 +10,7 @@ RUN npm install
 
 RUN npm uninstall react-scripts
 
-RUN npm install react-scripts@latest --save && npm audit fix
+RUN npm install react-scripts@latest --save
 
 RUN npm cache clean --force
 
