@@ -28,14 +28,14 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    bat 'docker-compose down --rmi all --volumes'
+                    bat 'docker-compose build'
                 }
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker-compose up --build'
+                    bat 'docker-compose up -d'
                 }
             }
         }
