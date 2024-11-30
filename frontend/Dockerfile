@@ -2,7 +2,11 @@ FROM node:18-slim
 
 WORKDIR /app
 
-COPY package*.json ./
+WORKDIR /app
+
+COPY package.json ./
+
+COPY package-lock.json ./
 
 RUN npm install
 
