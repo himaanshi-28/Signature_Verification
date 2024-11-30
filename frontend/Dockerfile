@@ -5,7 +5,6 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install -g npm@9.6.0
-RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object
 
 COPY . .
 
