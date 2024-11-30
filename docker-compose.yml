@@ -19,4 +19,4 @@ services:
       - ./frontend:/app
     depends_on:
       - backend
-    command: ["npm", "start"]
+    command: ["npm", "start", "0.0.0.0:3000"]
