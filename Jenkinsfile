@@ -25,17 +25,46 @@ pipeline {
                 }
             }
         }
+        stage('Checkout') {
+            steps {
+                // Checkout code from GitHub
+                checkout scm
+            }
+        }
+        stage('Build Frontend') {
+            steps {
+                script {
+                    dir('frontend') {
+                        sh 'docker build -t frontend:latest .'
+                    }
+                }
+            }
+        }
+        stage('Build Backend') {
+            steps {
+                script {
+                    dir('backend') {
+                        sh 'docker build -t backend:latest .'
+                    }
+                }
+            }
+        }
+        stage('Run Docker Compose') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
         stage('Build Docker Images') {
             steps {
                 script {
-                    bat 'docker-compose build --no-cache'
+                    bat 'docker-compose down --rmi all --volumes'
                 }
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker-compose up -d'
+                    bat 'docker-compose up --build'
                 }
             }
         }
