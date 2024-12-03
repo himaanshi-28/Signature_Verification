@@ -17,6 +17,4 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
-    depends_on:
-      - backend
     command: ["npm", "start", "0.0.0.0:3000"]
