@@ -71,7 +71,7 @@ const TwoSignatureVerification = () => {
 
     return (
         <div className="container">
-            <h2 className="header">sigNUrture</h2>
+            <h2 className="header">sigNUrture : check what is right</h2>
             <form onSubmit={handleSubmit}>
                 <div className="upload-section">
                     <label>
